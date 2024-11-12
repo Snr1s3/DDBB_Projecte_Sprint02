@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  mariadb-volum:
+    image: mariadb:latest
+    container_name: mariadb-proj
+    volumes:
+      - mariadb-volum:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+    ports:
+      - 8888:3306
+volumes:
+  mariadb-volum:
