@@ -85,24 +85,29 @@ def read_rooms_id(id: int):
     
 @app.get("/access", response_model=List[Access])
 def read_access():
-    return access.access_schema(db_access.read())
-
-
-#Endpoint per a mostrar un user per id
-@app.get("/access/show_user/{id}", response_model=Access)
-def read_access_user(id: int):
-    acces = db_access.read_by_user_id(id)
-    print(acces)
+    acces = db_access.read()
+    #print(acces)
     if acces is not None:
-        return access.acces_schema(acces)
+        return access.access_schema(acces)
     else:
         raise HTTPException(status_code=404, detail="Item not found")
 
-@app.get("/access/show_room/{id}", response_model=Access)
+
+#Endpoint per a mostrar un user per id
+@app.get("/access/show_user/{id}", response_model=List[Access])
+def read_access_user(id: int):
+    acces = db_access.read_by_user_id(id)
+    #print(acces)
+    if acces is not None:
+        return access.access_schema_id(acces)
+    else:
+        raise HTTPException(status_code=404, detail="Item not found")
+
+@app.get("/access/show_room/{id}", response_model=List[Access])
 def read_access_room(id: int):
     acces = db_access.read_by_room_id(id)
-    print(acces)
+    #print(acces)
     if acces is not None:
-        return access.acces_schema(acces)
+        return access.access_schema_id(acces)
     else:
         raise HTTPException(status_code=404, detail="Item not found")
