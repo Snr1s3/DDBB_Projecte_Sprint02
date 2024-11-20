@@ -1,7 +1,12 @@
-CREATE LOGIN readOnlyUser WITH PASSWORD = 'password';
-CREATE LOGIN developerUser WITH PASSWORD = 'password';
-CREATE LOGIN adminUser WITH PASSWORD = 'password';
+-- Crear Usuaris
+CREATE USER 'readOnlyUser' IDENTIFIED BY 'password';
+CREATE USER 'developerUser' IDENTIFIED BY 'password';
+CREATE USER 'adminUser' IDENTIFIED BY 'password';
 
-CREATE USER readOnlyUser FOR LOGIN readOnlyUser;
-CREATE USER developerUser FOR LOGIN developerUser;
-CREATE USER adminUser FOR LOGIN adminUser;
+-- DOnar permisos
+GRANT SELECT ON DDBBPROJ.* TO 'readOnlyUser';
+GRANT SELECT, INSERT, UPDATE, DELETE ON DDBBPROJ.* TO 'developerUser';
+GRANT ALL PRIVILEGES ON DDBBPROJ.* TO 'adminUser';
+
+-- Actualitzar permisos
+FLUSH PRIVILEGES;
