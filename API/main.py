@@ -10,6 +10,7 @@ import rooms
 import db_rooms
 import access
 import db_access
+import uvicorn
 
 #Inicialitzem la nostra aplicació FastAPI
 app = FastAPI()
@@ -111,3 +112,6 @@ def read_access_room(id: int):
         return access.access_schema_id(acces)
     else:
         raise HTTPException(status_code=404, detail="Item not found")
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000)
