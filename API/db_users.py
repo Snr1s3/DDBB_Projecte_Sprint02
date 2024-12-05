@@ -33,3 +33,46 @@ def read_id(id):
     except Exception as e:
         print(f"Error reading from database: {e}")
         return None
+
+def add_alumn(user:UserC):
+    try:
+        conn = db_client()
+        if conn["status"] == -1:
+            return conn
+
+        cursor = conn.cursor()
+        query = """
+        INSERT INTO users (name, surname, username, DNI, password, email, `group`, rol)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        """
+        values = (user.name, user.surname, user.username, user.DNI, user.password, user.email, user.group, alumn)
+        cursor.execute(query, values)
+        conn.commit()
+        user_id = cursor.lastrowid
+        cursor.close()
+        conn.close()
+        return {"status": 0, "message": "User added successfully", "user_id": user_id}
+    except Exception as e:
+        return {"status": -1, "message": f"Error adding user: {e}"}
+
+def add_prof(user: UserC):
+    try:
+        conn = db_client()
+        if conn["status"] == -1:
+            return conn
+
+        cursor = conn.cursor()
+        query = """
+        INSERT INTO users (name, surname, username, DNI, password, email, `group`, rol)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        """
+        values = (user.name, user.surname, user.username, user.DNI, user.password, user.email, user.group, prof)
+        cursor.execute(query, values)
+        conn.commit()
+        user_id = cursor.lastrowid
+        cursor.close()
+        conn.close()
+        return {"status": 0, "message": "User added successfully", "user_id": user_id}
+    except Exception as e:
+        print(f"Error reading from database: {e}")
+        return None

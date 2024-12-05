@@ -49,6 +49,15 @@ class Access(BaseModel):
     exit_date: str
     created_at: str
     updated_at: str
+
+class UserC(BaseModel):
+    name: str
+    surname: str
+    username: str
+    DNI: str
+    password: str
+    email: str
+    group: str
 #############
 # Endpoints #
 #############
@@ -112,6 +121,25 @@ def read_access_room(id: int):
     #print(acces)
     if acces is not None:
         return access.access_schema_id(acces)
+    else:
+        raise HTTPException(status_code=404, detail="Item not found")
+@app.post("/user/addAlumn")
+async def create(user: UserC): 
+   created = db_users.add_alumn(user)
+   if created is not None:
+        return {
+            "S’ha afegit correctemen"
+        }
+    else:
+        raise HTTPException(status_code=404, detail="Item not found")
+
+@app.post("/user/addProf")
+async def create(user: UserC): 
+   created = db_users.add_prof(user)
+   if created is not None:
+        return {
+            "S’ha afegit correctemen"
+        }
     else:
         raise HTTPException(status_code=404, detail="Item not found")
 
