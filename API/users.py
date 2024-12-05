@@ -13,8 +13,9 @@ def user_schema(user):
         "DNI": user[4],
         "password": user[5],
         "email": user[6],
-        "created_at": user[7].strftime("%Y-%m-%d %H:%M:%S") if isinstance(user[7], datetime) else user[7],
-        "updated_at": user[8].strftime("%Y-%m-%d %H:%M:%S") if isinstance(user[8], datetime) else user[8]
+        "group": user[7],
+        "created_at": user[8].strftime("%Y-%m-%d %H:%M:%S") if isinstance(user[8], datetime) else user[8],
+        "updated_at": user[9].strftime("%Y-%m-%d %H:%M:%S") if isinstance(user[9], datetime) else user[9]
     }
 
 # Funció per a retornar tots els users
