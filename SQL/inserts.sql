@@ -1,15 +1,14 @@
-
-INSERT INTO `users` (`name`, `surname`, `username`, `DNI`, `password`, `email`,`group`) VALUES
-('John', 'Doe', 'johndoe', '12345678A', 'password1', 'johndoe@example.com', 'DAM2A'),
-('Jane', 'Doe', 'janedoe', '87654321B', 'password2', 'janedoe@example.com', 'DAM2A'),
-('Alice', 'Smith', 'alicesmith', '11223344C', 'password3', 'alicesmith@example.com', 'DAM2B'),
-('Bob', 'Johnson', 'bobjohnson', '44332211D', 'password4', 'bobjohnson@example.com', 'DAM2A'),
-('Charlie', 'Brown', 'charliebrown', '55667788E', 'password5', 'charliebrown@example.com', 'DAM2B'),
-('David', 'Wilson', 'davidwilson', '99887766F', 'password6', 'davidwilson@example.com', 'DAM2B'),
-('Eva', 'Davis', 'evadavis', '66554433G', 'password7', 'evadavis@example.com', 'DAM2A'),
-('Frank', 'Miller', 'frankmiller', '33445566H', 'password8', 'frankmiller@example.com', 'DAM2B'),
-('Grace', 'Lee', 'gracelee', '77889900I', 'password9', 'gracelee@example.com', 'DAM2A'),
-('Hannah', 'Taylor', 'hannahtaylor', '99001122J', 'password10', 'hannahtaylor@example.com', 'DAM2B');
+INSERT INTO `users` (`name`, `surname`, `username`, `DNI`, `password`, `email`, `group`, `rol`) VALUES
+('John', 'Doe', 'johndoe', '12345678A', 'password1', 'johndoe@example.com', 'DAM2A', 'alumn'),
+('Jane', 'Doe', 'janedoe', '87654321B', 'password2', 'janedoe@example.com', 'DAM2A', 'alumn'),
+('Alice', 'Smith', 'alicesmith', '11223344C', 'password3', 'alicesmith@example.com', 'DAM2B', 'alumn'),
+('Bob', 'Johnson', 'bobjohnson', '44332211D', 'password4', 'bobjohnson@example.com', 'DAM2A', 'alumn'),
+('Charlie', 'Brown', 'charliebrown', '55667788E', 'password5', 'charliebrown@example.com', 'DAM2B', 'alumn'),
+('David', 'Wilson', 'davidwilson', '99887766F', 'password6', 'davidwilson@example.com', 'DAM2B', 'alumn'),
+('Eva', 'Davis', 'evadavis', '66554433G', 'password7', 'evadavis@example.com', 'DAM2A', 'alumn'),
+('Frank', 'Miller', 'frankmiller', '33445566H', 'password8', 'frankmiller@example.com', 'DAM2B', 'alumn'),
+('Grace', 'Lee', 'gracelee', '77889900I', 'password9', 'gracelee@example.com', 'DAM2A', 'alumn'),
+('Hannah', 'Taylor', 'hannahtaylor', '99001122J', 'password10', 'hannahtaylor@example.com', 'DAM2B', 'alumn');
 
 INSERT INTO `rooms` (`name`, `description`, `building_name`, `created_at`, `updated_at`) VALUES
 ('Room A', 'Description for Room A', 'Building 1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),

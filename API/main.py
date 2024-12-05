@@ -26,7 +26,8 @@ class User(BaseModel):
     DNI: str       
     password: str   
     email: str    
-    group: str   
+    group: str    
+    rol: str   
     created_at: str
     updated_at: str
 

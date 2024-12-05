@@ -7,10 +7,10 @@ import mysql.connector
 def db_client():
     try:
         dbname = "DDBBPROJ"
-        user = "root"
-        password = "1234"
+        user = "developerUser"
+        password = "password"
         host = "localhost"
-        port = "8888"
+        port = "3306"
         collation = "utf8mb4_general_ci"
         
         connection = mysql.connector.connect(
