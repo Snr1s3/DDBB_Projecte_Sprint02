@@ -125,23 +125,23 @@ def read_access_room(id: int):
         raise HTTPException(status_code=404, detail="Item not found")
 @app.post("/user/addAlumn")
 async def create(user: UserC): 
-   created = db_users.add_alumn(user)
-    if created is not None:
-        return {
+    created = db_users.add_alumn(user)
+    if created is  None:
+        raise HTTPException(status_code=404, detail="Item not found")
+    else:
+         return {
             "S’ha afegit correctemen"
         }
-    else:
-        raise HTTPException(status_code=404, detail="Item not found")
 
 @app.post("/user/addProf")
 async def create(user: UserC): 
-   created = db_users.add_prof(user)
-    if created is not None:
-        return {
+    created = db_users.add_prof(user)
+    if created is  None:
+        raise HTTPException(status_code=404, detail="Item not found")
+    else:
+         return {
             "S’ha afegit correctemen"
         }
-    else:
-        raise HTTPException(status_code=404, detail="Item not found")
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000)
