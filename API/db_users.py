@@ -4,14 +4,7 @@
 #Importem la funcio db_client de client
 from client import db_client
 
-class UserC(BaseModel):
-    name: str
-    surname: str
-    username: str
-    DNI: str
-    password: str
-    email: str
-    group: str
+
 #Funció per a retornar tots els users
 def read():
     try:
@@ -42,7 +35,7 @@ def read_id(id):
         print(f"Error reading from database: {e}")
         return None
 
-def add_alumn(user:UserC):
+def add_alumn(name, surname, username, DNI,password, email,group):
     try:
         conn = db_client()
         if conn["status"] == -1:
@@ -53,7 +46,7 @@ def add_alumn(user:UserC):
         INSERT INTO users (name, surname, username, DNI, password, email, `group`, rol)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
         """
-        values = (user.name, user.surname, user.username, user.DNI, user.password, user.email, user.group, alumn)
+        values = (name, surname, username, DNI, password, email, group, alumn)
         cursor.execute(query, values)
         conn.commit()
         user_id = cursor.lastrowid
@@ -63,7 +56,7 @@ def add_alumn(user:UserC):
     except Exception as e:
         return {"status": -1, "message": f"Error adding user: {e}"}
 
-def add_prof(user: UserC):
+def add_prof(name, surname, username, DNI,password, email,group):
     try:
         conn = db_client()
         if conn["status"] == -1:
@@ -74,7 +67,7 @@ def add_prof(user: UserC):
         INSERT INTO users (name, surname, username, DNI, password, email, `group`, rol)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
         """
-        values = (user.name, user.surname, user.username, user.DNI, user.password, user.email, user.group, prof)
+        values = (name, surname, username, DNI, password, email, group,prof)
         cursor.execute(query, values)
         conn.commit()
         user_id = cursor.lastrowid
