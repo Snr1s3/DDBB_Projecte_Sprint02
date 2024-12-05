@@ -126,7 +126,7 @@ def read_access_room(id: int):
 @app.post("/user/addAlumn")
 async def create(user: UserC): 
    created = db_users.add_alumn(user)
-   if created is not None:
+    if created is not None:
         return {
             "S’ha afegit correctemen"
         }
@@ -136,7 +136,7 @@ async def create(user: UserC):
 @app.post("/user/addProf")
 async def create(user: UserC): 
    created = db_users.add_prof(user)
-   if created is not None:
+    if created is not None:
         return {
             "S’ha afegit correctemen"
         }
