@@ -1,5 +1,5 @@
 
-INSERT INTO `users` (`name`, `surname`, `username`, `DNI`, `password`, `email`,`groups`) VALUES
+INSERT INTO `users` (`name`, `surname`, `username`, `DNI`, `password`, `email`,`group`) VALUES
 ('John', 'Doe', 'johndoe', '12345678A', 'password1', 'johndoe@example.com', 'DAM2A'),
 ('Jane', 'Doe', 'janedoe', '87654321B', 'password2', 'janedoe@example.com', 'DAM2A'),
 ('Alice', 'Smith', 'alicesmith', '11223344C', 'password3', 'alicesmith@example.com', 'DAM2B'),
