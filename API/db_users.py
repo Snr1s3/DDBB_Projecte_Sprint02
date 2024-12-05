@@ -35,7 +35,7 @@ def read_id(id):
         print(f"Error reading from database: {e}")
         return None
 
-def add_alumn(name, surname, username, DNI,password, email,group):
+def add_alumn(name, surname, username, DNI, password, email, group, rol):
     try:
         conn = db_client()
         if conn["status"] == -1:
@@ -46,7 +46,7 @@ def add_alumn(name, surname, username, DNI,password, email,group):
         INSERT INTO users (name, surname, username, DNI, password, email, `group`, rol)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
         """
-        values = (name, surname, username, DNI, password, email, group, alumn)
+        values = (name, surname, username, DNI, password, email, group, rol)
         cursor.execute(query, values)
         conn.commit()
         user_id = cursor.lastrowid

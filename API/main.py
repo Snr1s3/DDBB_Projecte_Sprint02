@@ -124,14 +124,15 @@ def read_access_room(id: int):
     else:
         raise HTTPException(status_code=404, detail="Item not found")
 @app.post("/user/addAlumn")
-async def create(user: UserC): 
-    created = db_users.add_alumn(user)
-    if created is  None:
-        raise HTTPException(status_code=404, detail="Item not found")
-    else:
-         return {
-            "S’ha afegit correctemen"
-        }
+async def create(user: AlumnC): 
+    result = add_alumn(user.name, user.surname, user.username, user.DNI, user.password, user.email, user.group, user.rol)
+    if result["status"] == -1:
+        raise HTTPException(status_code=400, detail=result["message"])
+    
+    return {
+        "message": "S’ha afegit correctament",
+        "user_id": result["user_id"]
+    }
 
 @app.post("/user/addProf")
 async def create(user: UserC): 
