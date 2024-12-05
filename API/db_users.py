@@ -4,6 +4,14 @@
 #Importem la funcio db_client de client
 from client import db_client
 
+class UserC(BaseModel):
+    name: str
+    surname: str
+    username: str
+    DNI: str
+    password: str
+    email: str
+    group: str
 #Funció per a retornar tots els users
 def read():
     try:
