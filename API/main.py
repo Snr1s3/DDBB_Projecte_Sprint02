@@ -26,7 +26,7 @@ class User(BaseModel):
     DNI: str       
     password: str   
     email: str    
-    group: str    
+    groups: str    
     rol: str   
     created_at: str
     updated_at: str
@@ -51,13 +51,23 @@ class Access(BaseModel):
     updated_at: str
 
 class UserC(BaseModel):
-    name: str
+    name: str                      
     surname: str
-    username: str
-    DNI: str
-    password: str
-    email: str
-    group: str
+    username: str     
+    DNI: str       
+    password: str   
+    email: str    
+    groups: str  
+
+class UserU(BaseModel):
+    name: str                      
+    surname: str
+    username: str     
+    DNI: str       
+    password: str   
+    email: str    
+    groups: str  
+    rol: str
 #############
 # Endpoints #
 #############
@@ -124,25 +134,60 @@ def read_access_room(id: int):
     else:
         raise HTTPException(status_code=404, detail="Item not found")
 @app.post("/user/addAlumn")
-async def create(user: UserC): 
-    result = db_users.add_alumn(user.name, user.surname, user.username, user.DNI, user.password, user.email, user.group, user.rol)
-    if result["status"] == -1:
-        raise HTTPException(status_code=400, detail=result["message"])
-    
-    return {
-        "message": "S’ha afegit correctament",
-        "user_id": result["user_id"]
-    }
+def add_alumn(user: UserC):
+    try:
+        result = db_users.add_alumn(user.name, user.surname, user.username, user.DNI, user.password, user.email, user.groups)
+        if result["status"] == -1:
+            raise HTTPException(status_code=400, detail=result["message"])
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Error adding user: {e}")
 
 @app.post("/user/addProf")
-async def create(user: UserC): 
-    created = db_users.add_prof(user)
-    if created is  None:
-        raise HTTPException(status_code=404, detail="Item not found")
-    else:
-         return {
-            "S’ha afegit correctemen"
-        }
+def add_prof(user: UserC):
+    try:
+        result = db_users.add_prof(user.name, user.surname, user.username, user.DNI, user.password, user.email, user.groups)
+        if result["status"] == -1:
+            raise HTTPException(status_code=400, detail=result["message"])
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Error adding user: {e}")
+
+@app.post("/user/addAdmin")
+def add_admin(user: UserC):
+    try:
+        result = db_users.add_admin(user.name, user.surname, user.username, user.DNI, user.password, user.email, user.groups)
+        if result["status"] == -1:
+            raise HTTPException(status_code=400, detail=result["message"])
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Error adding user: {e}")
+
+@app.put("/user/update/{id}")
+def update_user(id: int, user: UserU):
+    try:
+        id_exists = db_users.read_id(id)
+        if id_exists is None:
+            raise HTTPException(status_code=404, detail="Item not found")
+        result = db_users.updt_user(id, user.name, user.surname, user.username, user.DNI, user.password, user.email, user.groups, user.rol)
+        if result["status"] == -1:
+            raise HTTPException(status_code=400, detail=result["message"])
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Error adding user: {e}")
+
+@app.delete("/user/delete/{id}")
+def del_user(id: int):
+    try:
+        id_exists = db_users.read_id(id)
+        if id_exists is None:
+            raise HTTPException(status_code=404, detail="Item not found")
+        result = db_users.del_user(id)
+        if result["status"] == -1:
+            raise HTTPException(status_code=400, detail=result["message"])
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Error adding user: {e}")
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000)

@@ -13,7 +13,7 @@ def user_schema(user):
         "DNI": user[4],
         "password": user[5],
         "email": user[6],
-        "group": user[7],
+        "groups": user[7],
         "rol": user[8],
         "created_at": user[9].strftime("%Y-%m-%d %H:%M:%S") if isinstance(user[9], datetime) else user[9],
         "updated_at": user[10].strftime("%Y-%m-%d %H:%M:%S") if isinstance(user[10], datetime) else user[10]
