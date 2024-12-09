@@ -59,6 +59,19 @@ class UserC(BaseModel):
     email: str    
     groups: str  
 
+class RoomsC(BaseModel):
+    name: str
+    description: str
+    building_name: str
+
+class AccessC(BaseModel):
+    user_id: int
+    room_id: int
+    entry_time: str
+    exit_time: str
+    entry_date: str
+    exit_date: str
+
 class UserU(BaseModel):
     name: str                      
     surname: str
@@ -108,18 +121,22 @@ def read_rooms_id(id: int):
 @app.get("/access", response_model=List[Access])
 def read_access():
     acces = db_access.read()
-    #print(acces)
     if acces is not None:
         return access.access_schema(acces)
     else:
         raise HTTPException(status_code=404, detail="Item not found")
 
+@app.get("/access/show/{id}", response_model=Access)
+def read_access_id(id: int):
+    acces = db_access.read_id(id)
+    if acces is not None:
+        return access.acces_schema_id(acces[0])
+    else:
+        raise HTTPException(status_code=404, detail="Item not found")
 
-#Endpoint per a mostrar un user per id
 @app.get("/access/show_user/{id}", response_model=List[Access])
 def read_access_user(id: int):
     acces = db_access.read_by_user_id(id)
-    #print(acces)
     if acces is not None:
         return access.access_schema_id(acces)
     else:
@@ -128,11 +145,13 @@ def read_access_user(id: int):
 @app.get("/access/show_room/{id}", response_model=List[Access])
 def read_access_room(id: int):
     acces = db_access.read_by_room_id(id)
-    #print(acces)
     if acces is not None:
         return access.access_schema_id(acces)
     else:
         raise HTTPException(status_code=404, detail="Item not found")
+
+
+
 @app.post("/user/addAlumn")
 def add_alumn(user: UserC):
     try:
@@ -163,6 +182,26 @@ def add_admin(user: UserC):
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Error adding user: {e}")
 
+@app.post("/room/addRoom")
+def add_room(room: RoomsC):
+    try:
+        result = db_rooms.add_room(room.name, room.description, room.building_name)
+        if result["status"] == -1:
+            raise HTTPException(status_code=400, detail=result["message"])
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Error adding room: {e}")
+
+@app.post("/access/addAccess")
+def add_access(access: AccessC):
+    try:
+        result = db_access.add_access(access.user_id, access.room_id, access.entry_time, access.entry_date, access.exit_time, access.exit_date)
+        if result["status"] == -1:
+            raise HTTPException(status_code=400, detail=result["message"])
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Error adding access: {e}")
+
 @app.put("/user/update/{id}")
 def update_user(id: int, user: UserU):
     try:
@@ -174,7 +213,33 @@ def update_user(id: int, user: UserU):
             raise HTTPException(status_code=400, detail=result["message"])
         return result
     except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Error adding user: {e}")
+        raise HTTPException(status_code=400, detail=f"Error updating user: {e}")
+
+@app.put("/room/update/{id}")
+def update_room(id: int, room: RoomsC):
+    try:
+        id_exists = db_rooms.read_id(id)
+        if id_exists is None:
+            raise HTTPException(status_code=404, detail="Item not found")
+        result = db_rooms.updt_room(id, room.name, room.description, room.building_name)
+        if result["status"] == -1:
+            raise HTTPException(status_code=400, detail=result["message"])
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Error updating room: {e}")
+
+@app.put("/access/update/{id}")
+def update_access(id: int, access: AccessC):
+    try:
+        id_exists = db_access.read_id(id)
+        if id_exists is None:
+            raise HTTPException(status_code=404, detail="Item not found")
+        result = db_access.updt_access(id, access.user_id, access.room_id, access.entry_time, access.entry_date, access.exit_time, access.exit_date)
+        if result["status"] == -1:
+            raise HTTPException(status_code=400, detail=result["message"])
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Error updating access: {e}")
 
 @app.delete("/user/delete/{id}")
 def del_user(id: int):
@@ -187,7 +252,7 @@ def del_user(id: int):
             raise HTTPException(status_code=400, detail=result["message"])
         return result
     except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Error adding user: {e}")
+        raise HTTPException(status_code=400, detail=f"Error removing user: {e}")
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000)
