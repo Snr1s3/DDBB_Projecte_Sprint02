@@ -34,7 +34,19 @@ def read_id(id):
     except Exception as e:
         print(f"Error reading from database: {e}")
         return None
-
+def get_username(username: str):
+    try:
+        conn = db_client()
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM users WHERE username = %s", (username,))
+        user = cur.fetchone()
+        cur.close()
+        conn.close()
+        return user
+    except Exception as e:
+        print(f"Error reading from database: {e}")
+        return None
+        
 def add_alumn(name, surname, username, DNI, password, email, groups):
     try:
         conn = db_client()

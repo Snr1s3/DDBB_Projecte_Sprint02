@@ -11,10 +11,17 @@ import db_rooms
 import access
 import db_access
 import uvicorn
-
+from fastapi.middleware.cors import CORSMiddleware
 #Inicialitzem la nostra aplicació FastAPI
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 ###########
 # CLASSES #
 ###########
@@ -103,6 +110,17 @@ def read_users_id(id: int):
         return users.user_schema(user)
     else:
         raise HTTPException(status_code=404, detail="Item not found")
+        
+@app.get("/users/getUsername/{username}")
+async def get_user_by_username(username: str):
+    user = db_users.get_username(username)
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return {
+        "username": user[3],  # Assuming username is at index 2
+        "password": user[5],  # Assuming password is at index 5
+        "rol": user[8]       # Assuming role is at index 8
+    }
     
 #Endpoint per a la llista d'users
 @app.get("/rooms", response_model=List[Rooms])
