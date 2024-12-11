@@ -27,6 +27,27 @@ La Base de Dades triada és MariaDB. MariaDB és una base de dades relacional de
 ## FASTAPI
 He triat FASTAPI perque te un alt rendiment, es facil d'utilitzar i a l'hora de fer proves, disposa d'una documentacio interactiva de l'API amb Swagger
 
+## FASTAPI /DOCS
+  ![logs](./Imatges/users.png)            
+  ![logs](./Imatges/usersShowId.png)            
+  ![logs](./Imatges/usersUsername.png)            
+  ![logs](./Imatges/rooms.png)            
+  ![logs](./Imatges/roomsId.png)            
+  ![logs](./Imatges/access.png)            
+  ![logs](./Imatges/accessId.png)            
+  ![logs](./Imatges/accessUserId.png)           
+  ![logs](./Imatges/accessUserId.png)            
+  ![logs](./Imatges/userAddAlumn.png)            
+  ![logs](./Imatges/userAddProf.png)            
+  ![logs](./Imatges/usreAddAdmin.png)            
+  ![logs](./Imatges/rooomAddRoom.png)            
+  ![logs](./Imatges/accessAddAccess.png)            
+  ![logs](./Imatges/userUpdate.png)            
+  ![logs](./Imatges/roomUpdate.png)            
+  ![logs](./Imatges/accessUpdate.png)            
+  ![logs](./Imatges/userDelete.png)     
+ 
+
 ## Logs de les proves a ISARD
 
- ![alt text](./Imatges/ComprobacioIsardBBDD.png) 
+ ![logs](./Imatges/LogServer.png)            
